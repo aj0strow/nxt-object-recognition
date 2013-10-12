@@ -7,6 +7,7 @@ import lejos.nxt.LCD;
 
 public class Operator implements TimerListener {
 	private static final int PERIOD = 5;
+	private Timer timer;
 	
 	private static final double TRAVEL_SPEED = 4.0;
 	private static final double ROTATE_SPEED = Math.PI / 8;
@@ -16,6 +17,7 @@ public class Operator implements TimerListener {
 	private Position position;
 	
 	private UltrasonicPoller ultrasonicPoller;
+	private UltrasonicLocalizer ultrasonicLocalizer; 
 	
 	private double angle = Double.NaN;
 	private double angleDifference;
@@ -24,15 +26,19 @@ public class Operator implements TimerListener {
 	private double distance;
 	
 
-	public Operator(Robot robot, SensorPort sensorPort) {
+	public Operator(Robot robot, Odometer odometer, UltrasonicPoller ultrasonicPoller) {
 		this.robot = robot;
 		
-		this.odometer = new Odometer(robot);
+		this.odometer = odometer;
 		this.position = odometer.getPosition();
 		
-		this.ultrasonicPoller = new UltrasonicPoller(sensorPort);
+		this.ultrasonicPoller = ultrasonicPoller;
 		
-		(new Timer(PERIOD, this)).start();
+		this.timer = new Timer(PERIOD, this);
+	}
+	
+	public void start() {
+		this.timer.start();
 	}
 	
 	public void timedOut() {
@@ -47,7 +53,7 @@ public class Operator implements TimerListener {
 		} else {
 			robot.setSpeeds(0.0, 0.0);
 		}
-		LCD.drawString("up: " + ultrasonicPoller.getDistance(), 0, 3);
+		// LCD.drawString("up: " + ultrasonicPoller.getDistance(), 0, 3);
 	}
 	
 	public void travelTo(Point point) {

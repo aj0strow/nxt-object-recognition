@@ -10,13 +10,22 @@ public class Lab5 {
 		Button.waitForAnyPress();
 		
 		Robot robot = new Robot(Motor.A, Motor.B);
-		Operator operator = new Operator(robot, SensorPort.S2);
-		
 		robot.setAcceleration(10000);
 		
-		operator.travelTo(new Point(25, 25));
-		try { Thread.sleep(12000); } catch(InterruptedException e) {}
+		Odometer odometer = new Odometer(robot);
+		UltrasonicPoller ultrasonicPoller = new UltrasonicPoller(SensorPort.S2);
 		
+		UltrasonicLocalizer ultrasonicLocalizer = new UltrasonicLocalizer(robot, odometer, ultrasonicPoller);
+		Operator operator = new Operator(robot, odometer, ultrasonicPoller);
+		
+		// localize
+		
+		ultrasonicLocalizer.localize();
+		
+		while (ultrasonicLocalizer.isLocalizing()) {
+			try { Thread.sleep(1000); } catch(InterruptedException e) {}
+		}
+				
 		Button.waitForAnyPress();
 	}
 	

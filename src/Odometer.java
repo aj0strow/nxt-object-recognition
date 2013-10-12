@@ -49,8 +49,6 @@ public class Odometer implements TimerListener {
 		
 		this.displacement = newDisplacement;
 		this.heading = newHeading;
-		
-		displayPosition();
 	}
 	
 	public Position getPosition() {
