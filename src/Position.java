@@ -9,7 +9,7 @@ public class Position extends Point {
 	
 	public Position(double x, double y, double theta) {
 		super(x, y);
-		this.theta = normalizeAngle(theta);
+		this.theta = Angle.normalize(theta);
 	}
 	
 	public Position(Point point, double theta) {
@@ -23,14 +23,6 @@ public class Position extends Point {
 	public void incr(double dx, double dy, double dtheta) {
 		this.x += dx;
 		this.y += dy;
-		this.theta = normalizeAngle(theta + dtheta);
-	}
-	
-	private static double normalizeAngle(double radians) {
-		// normalize angle so 0 <= angle < 2π
-		
-	   double normalized = radians % (2 * Math.PI);
-	   if (normalized < 0) normalized += 2 * Math.PI;
-	   return normalized;
+		this.theta = Angle.normalize(theta + dtheta);
 	}
 }
