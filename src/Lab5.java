@@ -25,6 +25,11 @@ public class Lab5 {
 		while (ultrasonicLocalizer.isLocalizing()) {
 			try { Thread.sleep(1000); } catch(InterruptedException e) {}
 		}
+		
+		try { Thread.sleep(5000); } catch(InterruptedException e) {}
+		
+		operator.start();
+		operator.rotateTo(0.0);
 				
 		Button.waitForAnyPress();
 	}

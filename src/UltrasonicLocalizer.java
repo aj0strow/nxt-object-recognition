@@ -58,7 +58,6 @@ public class UltrasonicLocalizer implements TimerListener {
 				checkForEdge();
 			}
 			
-			
 		} else {
 			LCD.drawString("NOT READY", 0, 0);
 			this.ready = distance >= 50;
