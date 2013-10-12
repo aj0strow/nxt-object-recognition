@@ -1,15 +1,21 @@
 import lejos.util.Timer;
 import lejos.util.TimerListener;
+import lejos.nxt.SensorPort;
+
 import lejos.nxt.LCD;
 
+
 public class Operator implements TimerListener {
-	private static final int PERIOD = 10;
+	private static final int PERIOD = 5;
 	
-	private static final double TRAVEL_SPEED = 5.0;
+	private static final double TRAVEL_SPEED = 4.0;
 	private static final double ROTATE_SPEED = Math.PI / 8;
 	
 	private Robot robot;
 	private Odometer odometer;
+	private Position position;
+	
+	private UltrasonicPoller ultrasonicPoller;
 	
 	private double angle = Double.NaN;
 	private double angleDifference;
@@ -17,13 +23,14 @@ public class Operator implements TimerListener {
 	private Point point = null;
 	private double distance;
 	
-	private Position position;
 
-	public Operator(Robot robot) {
+	public Operator(Robot robot, SensorPort sensorPort) {
 		this.robot = robot;
 		
 		this.odometer = new Odometer(robot);
 		this.position = odometer.getPosition();
+		
+		this.ultrasonicPoller = new UltrasonicPoller(sensorPort);
 		
 		(new Timer(PERIOD, this)).start();
 	}
@@ -37,7 +44,10 @@ public class Operator implements TimerListener {
 		} else if (isTravelling()) {
 			if (travelled()) stopTravelling();
 			else travel();
-		} 
+		} else {
+			robot.setSpeeds(0.0, 0.0);
+		}
+		LCD.drawString("up: " + ultrasonicPoller.getDistance(), 0, 3);
 	}
 	
 	public void travelTo(Point point) {
@@ -46,7 +56,9 @@ public class Operator implements TimerListener {
 	}
 	
 	private void travel() {
-		robot.setSpeeds(TRAVEL_SPEED, 0.0);
+		double rotateSpeed = 0.0;
+		double radians = Angle.difference(position.theta, position.angleTo(point));
+		robot.setSpeeds(TRAVEL_SPEED, radians);
 	}
 	
 	private void stopTravelling() {
@@ -57,9 +69,8 @@ public class Operator implements TimerListener {
 	private boolean travelled() {
 		double newDistance = position.distanceTo(point);
 		
-		boolean isClose = newDistance < 0.5;
+		boolean isClose = newDistance < 2.0;
 		boolean worsened = distance <= newDistance;
-		
 		
 		this.distance = newDistance;
 		

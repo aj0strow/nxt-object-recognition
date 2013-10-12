@@ -10,7 +10,7 @@ public class Lab5 {
 		Button.waitForAnyPress();
 		
 		Robot robot = new Robot(Motor.A, Motor.B);
-		Operator operator = new Operator(robot);
+		Operator operator = new Operator(robot, SensorPort.S2);
 		
 		robot.setAcceleration(10000);
 		
