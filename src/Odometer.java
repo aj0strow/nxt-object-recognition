@@ -59,9 +59,7 @@ public class Odometer implements TimerListener {
 	
 	public void incrPosition(double dx, double dy, double dtheta) {
 		synchronized (lock) {
-			this.position.x += dx;
-			this.position.y += dy;
-			this.position.theta += dtheta;
+			this.position.incr(dx, dy, dtheta);
 		}
 	}
 	
@@ -77,7 +75,7 @@ public class Odometer implements TimerListener {
 		LCD.clear();
 		LCD.drawString("x: " + p.x, 0, 0);
 		LCD.drawString("y: " + p.y, 0, 1);
-		LCD.drawString("t: " + p.theta, 0, 2);
+		LCD.drawString("t: " + Math.toDegrees(p.theta), 0, 2);
 	}
 
 }
