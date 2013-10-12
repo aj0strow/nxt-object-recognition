@@ -2,6 +2,25 @@ import lejos.util.Timer;
 import lejos.util.TimerListener;
 import lejos.nxt.LCD;
 
+/*
+* Odometer defines cooridinate system as such...
+* 
+*               π/2 rad:pos y-axis
+*                      |
+*                      |
+*                      |
+*                      |
+* π rad:neg x-axis------------ 0 rad:pos x-axis
+*                      |
+*                      |
+*                      |
+*                      |
+*              3π/2 rad:neg y-axis
+* 
+* The odometer is initalized to (0, 0, 0), so at the origin facing up 
+* the positive x-axis
+*/
+
 public class Odometer implements TimerListener {
 	private static final int PERIOD = 10;
 	private Timer timer;
@@ -48,6 +67,7 @@ public class Odometer implements TimerListener {
 		}
 	}
 	
+	// increase the position by polar displacement (cm), and angle (rad)
 	public void incrPosition(double centimeters, double radians) {
 		double theta = getTheta();
 		
@@ -57,6 +77,7 @@ public class Odometer implements TimerListener {
 		incrPosition(dx, dy, radians);
 	}
 	
+	// increase the position by dx (cm), dy (cm), dtheta (rad)
 	public void incrPosition(double dx, double dy, double dtheta) {
 		synchronized (lock) {
 			this.position.incr(dx, dy, dtheta);
