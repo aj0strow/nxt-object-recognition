@@ -11,6 +11,13 @@ public class Lab5 {
 		
 		SensorPort s3 = SensorPort.S3;
 		final ColorSensor colorSensor = new ColorSensor(s3);
+		
+		/*
+		*  The color sensor gets random readings under 10 when there is
+		*  is no object within a reasonable distance. However when over
+		*  10 for RGB, if R > B then it is a wood block, if B > R it is
+		*  a styrofoam block. 
+		*/
 				
 		Timer timer = new Timer(300, new TimerListener() {
 			public void timedOut() {
