@@ -14,11 +14,8 @@ public class Lab5 {
 		
 		robot.setAcceleration(10000);
 		
-		operator.rotateTo(Math.PI);
-		try { Thread.sleep(10000); } catch(InterruptedException e) {}
-		
-		operator.rotateTo(Math.PI / 2);
-		try { Thread.sleep(50000); } catch(InterruptedException e) {}
+		operator.travelTo(new Point(25, 25));
+		try { Thread.sleep(12000); } catch(InterruptedException e) {}
 		
 		Button.waitForAnyPress();
 	}
