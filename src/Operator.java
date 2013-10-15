@@ -72,6 +72,10 @@ public class Operator implements TimerListener {
 		this.point = null;
 	}
 	
+	public boolean isNavigating() {
+		return isTravelling() || isRotating();
+	}
+	
 	private boolean travelled() {
 		double newDistance = position.distanceTo(point);
 		

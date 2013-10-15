@@ -14,24 +14,46 @@ public class Lab5 {
 		
 		Odometer odometer = new Odometer(robot);
 		UltrasonicPoller ultrasonicPoller = new UltrasonicPoller(SensorPort.S2);
+		LightSensor lightSensor = new LightSensor(SensorPort.S1);
 		
 		UltrasonicLocalizer ultrasonicLocalizer = new UltrasonicLocalizer(robot, odometer, ultrasonicPoller);
+		LineLocalizer lineLocalizer = new LineLocalizer(robot, odometer, lightSensor);
+		
 		Operator operator = new Operator(robot, odometer, ultrasonicPoller);
 		
 		// localize
 		
 		ultrasonicLocalizer.localize();
+		while (ultrasonicLocalizer.isLocalizing()) halt();
 		
-		while (ultrasonicLocalizer.isLocalizing()) {
-			try { Thread.sleep(1000); } catch(InterruptedException e) {}
-		}
+		lineLocalizer.localize();
+		while (lineLocalizer.isLocalizing()) halt();
 		
 		try { Thread.sleep(5000); } catch(InterruptedException e) {}
 		
 		operator.start();
-		operator.rotateTo(0.0);
+		operator.travelTo(new Point(0.0, 0.0));
+		while (operator.isNavigating()) halt();
+		
+		Sound.twoBeeps();
+		
+		while (lightSensor.readNormalizedValue() > 400) {
+			robot.setSpeeds(0.0, -Math.PI / 4);
+			halt(5);
+		}
+		robot.setSpeeds(0.0, 0.0);
+		odometer.setTheta(0.0);
+		
+		// find blocks
 				
 		Button.waitForAnyPress();
 	}
 	
+	private static void halt() {
+		halt(1000);
+	}
+	
+	private static void halt(int ms) {
+		try { Thread.sleep(ms); } catch(InterruptedException e) {}
+	}
 }

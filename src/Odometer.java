@@ -89,6 +89,10 @@ public class Odometer implements TimerListener {
 		return result;
 	}
 	
+	public void setTheta(double theta) {
+		synchronized (lock) { position.theta = theta; }
+	}
+	
 	public void displayPosition() {
 		Position p = getPosition();
 		LCD.clear();
