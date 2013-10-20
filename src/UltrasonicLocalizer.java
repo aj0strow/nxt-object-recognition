@@ -83,7 +83,7 @@ public class UltrasonicLocalizer implements TimerListener {
 			robot.setSpeeds(0.0, 0.0);
 			this.ready = false;
 			resetEdgeAngles();
-			Sound.beep();
+			communicate();
 		} else if (Double.isNaN(positive)) {
 			this.positive = Angle.between(outerAngle, innerAngle);
 			robot.setSpeeds(0.0, 0.0);
@@ -99,7 +99,7 @@ public class UltrasonicLocalizer implements TimerListener {
 			LCD.drawString("theta: " + Math.toDegrees(odometer.getTheta()), 0, 5);
 				
 			stopLocalizing();
-			Sound.beep();
+			communicate();
 		}
 	}
 	
@@ -126,6 +126,10 @@ public class UltrasonicLocalizer implements TimerListener {
 	
 	public boolean isLocalizing() {
 		return timer != null;
+	}
+	
+	private void communicate() {
+		Sound.beep();
 	}
 
 }

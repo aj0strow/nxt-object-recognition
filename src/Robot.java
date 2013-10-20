@@ -31,6 +31,14 @@ public class Robot {
 		setMotorSpeeds();
 	}
 	
+	public void setForwardSpeed(double speed) {
+		setSpeeds(speed, this.rotationSpeed);
+	}
+	
+	public void setRotationSpeed(double speed) {
+		setSpeeds(this.forwardSpeed, speed);
+	}
+	
 	private void setMotorSpeeds() {
 		double turnSpeed = rotationSpeed * WHEEL_SEPARATION / 2.0;
 		setMotorSpeed(leftMotor, forwardSpeed - turnSpeed);

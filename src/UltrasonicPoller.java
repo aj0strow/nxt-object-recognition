@@ -2,6 +2,7 @@ import lejos.nxt.UltrasonicSensor;
 import lejos.util.Timer;
 import lejos.util.TimerListener;
 import lejos.nxt.SensorPort;
+import lejos.nxt.NXTRegulatedMotor;
 
 /*
 *  The Ultrasonic Poller is in charge of reading the sensor, filtering out
@@ -35,7 +36,7 @@ public class UltrasonicPoller implements TimerListener {
 	public UltrasonicPoller(SensorPort sensorPort) {
 		this.sensor = new UltrasonicSensor(sensorPort);
 		this.lock = new Object();
-		
+				
 		this.timer = new Timer(PERIOD, this);
 		timer.start();
 	}

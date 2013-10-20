@@ -25,4 +25,8 @@ public class Position extends Point {
 		this.y += dy;
 		this.theta = Angle.normalize(theta + dtheta);
 	}
+	
+	public Point point() {
+		return new Point(x, y);
+	}
 }

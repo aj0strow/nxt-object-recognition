@@ -1,8 +1,6 @@
 import lejos.nxt.LightSensor;
 import lejos.util.TimerListener;
 import lejos.util.Timer;
-import lejos.nxt.Sound;
-import lejos.nxt.LCD;
 
 public class LineLocalizer implements TimerListener {
 	public static final int PERIOD = 10;
@@ -56,7 +54,6 @@ public class LineLocalizer implements TimerListener {
 	private void detectLine() {
 		boolean isLine = lightSensor.readNormalizedValue() < LIGHT_THRESHOLD;
 		if (isLine && !wasLine) {
-			Sound.beep();
 			angles[angleIndex()] = position.theta;
 		}
 		this.wasLine = isLine;
