@@ -1,3 +1,5 @@
+// this is a stub, just so the default action is forward motion
+
 public class ForwardController extends Controller {
 
 	protected Robot robot;

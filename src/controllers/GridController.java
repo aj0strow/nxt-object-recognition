@@ -1,6 +1,13 @@
-import lejos.nxt.Sound;
+/*
+*  Grid Controller is in charge of keeping the robot in the grid. It takes the
+*  odometer, robot, and maximum point of the grid (max x, max y). 
+*  
+*  It rotates the robot towards the middle if it's in a corner, and parallel to
+*  the wall when the robot is too close to a side. It will only correct every 5cm. 
+*/
 
 public class GridController extends NavigationController {
+	private static final double DEBOUNCE_DISTANCE = 5.0;
 	protected static final double DELTA = 18.0;
 	protected Point maximum;
 	
@@ -16,16 +23,22 @@ public class GridController extends NavigationController {
 		super.setup();
 		
 		if (super.ok()) {
-			if (correctedAt == null) {
-				if (outside()) correct();
-			} else if (position.distanceTo(correctedAt) > 5.0) {
-				this.correctedAt = null;
-			}
+			if (debounced() && outside()) correct();
+			else debounce();
+		}
+	}
+	
+	private boolean debounced() {
+		return correctedAt == null;
+	}
+	
+	private void debounce() {
+		if (!debounced() && position.distanceTo(correctedAt) > DEBOUNCE_DISTANCE) {
+			this.correctedAt = null;
 		}
 	}
 	
 	private void correct() {
-		Sound.beep();
 		this.correctedAt = position.point();
 		rotateTo(angle());
 	}
