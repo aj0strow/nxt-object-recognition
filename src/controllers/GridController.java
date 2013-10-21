@@ -13,9 +13,9 @@ public class GridController extends NavigationController {
 	
 	private Point correctedAt;
 	
-	public GridController(Odometer odometer, Robot robot, Point maximum) {
-		super(odometer, robot);
-		this.maximum = maximum.clone();
+	public GridController(Configuration configuration) {
+		super(configuration);
+		this.maximum = configuration.maximumPoint;
 	}
 	
 	@Override

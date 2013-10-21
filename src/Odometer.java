@@ -33,7 +33,7 @@ public class Odometer implements TimerListener {
 	double displacement = 0.0, heading = 0.0;
 
 	public Odometer(Robot robot) {
-		this.position = new Position(0.0, 0.0, 0.0);
+		this.position = new Position(30.0, 30.0, 0.0);
 		this.lock = new Object();
 		
 		this.robot = robot;
@@ -49,6 +49,8 @@ public class Odometer implements TimerListener {
 		
 		this.displacement = newDisplacement;
 		this.heading = newHeading;
+		
+		displayPosition();
 	}
 	
 	public Position getPosition() {

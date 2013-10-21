@@ -6,8 +6,8 @@
 */
 
 abstract class Controller {
-	
-	public Controller() {}
+		
+	protected Controller(Configuration configuration) {}
 	
 	// override these methods
 	protected void setup() {}

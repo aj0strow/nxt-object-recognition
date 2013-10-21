@@ -9,8 +9,8 @@ abstract class NavigationController extends RobotController {
 	private double angle = Double.NaN;
 	private double angleDifference = Double.NaN;
 	
-	public NavigationController(Odometer odometer, Robot robot) {
-		super(odometer, robot);
+	public NavigationController(Configuration configuration) {
+		super(configuration);
 	}
 	
 	@Override

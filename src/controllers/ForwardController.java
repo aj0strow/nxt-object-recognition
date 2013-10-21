@@ -1,12 +1,11 @@
 // this is a stub, just so the default action is forward motion
 
-public class ForwardController extends Controller {
+public class ForwardController extends RobotController {
 
 	protected Robot robot;
 
-	public ForwardController(Robot robot) {
-		super();
-		this.robot = robot;
+	public ForwardController(Configuration configuration) {
+		super(configuration);
 	}
 	
 	@Override

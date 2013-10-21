@@ -9,25 +9,35 @@ public class Lab5 {
 		
 		Button.waitForAnyPress();
 		
-		Robot robot = new Robot(Motor.A, Motor.B);
-		robot.setAcceleration(10000);
+		Configuration config = new Configuration();
+		config.robot = new Robot(Motor.A, Motor.B);
+		config.robot.setAcceleration(10000);
 		
-		Odometer odometer = new Odometer(robot);
+		config.odometer = new Odometer(config.robot);
+		config.ultrasonicPoller = new UltrasonicPoller(SensorPort.S2);
+		config.colorPoller = new ColorPoller(SensorPort.S3);
 		
-		LCD.drawString("odometer", 0, 0);
+		config.maximumPoint = new Point(60, 60);
 		
-		UltrasonicPoller ultrasonicPoller = new UltrasonicPoller(SensorPort.S2);
 		
-		LCD.drawString("ultra poller", 0, 1);
 		
-		ColorPoller colorPoller = new ColorPoller(SensorPort.S3);
+		/* 
 		
-		LCD.drawString("color poller", 0, 2);
+				
+		// Operator operator = new Operator(robot, odometer, ultrasonicPoller, colorPoller);
+		Navigation operator = new Navigation(robot, odometer, ultrasonicPoller);
 		
-		Operator operator = new Operator(robot, odometer, ultrasonicPoller, colorPoller);
+		operator.navigateTo(new Point(30, 30));
+		operator.navigateTo(new Point(60, 60));
+		operator.navigateTo(new Point(90, 90));
+		*/		
 		
-		LCD.drawString("operator", 0, 3);
-		
+		Controller[] controllers = new Controller[]{ 
+			new GridController(config), 
+			new ForwardController(config)
+		};
+
+		Operator operator = new Operator(controllers);
 		operator.start();
 		
 		// localize
