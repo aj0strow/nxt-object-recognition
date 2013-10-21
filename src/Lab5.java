@@ -17,20 +17,7 @@ public class Lab5 {
 		config.ultrasonicPoller = new UltrasonicPoller(SensorPort.S2);
 		config.colorPoller = new ColorPoller(SensorPort.S3);
 		
-		config.maximumPoint = new Point(60, 60);
-		
-		
-		
-		/* 
-		
-				
-		// Operator operator = new Operator(robot, odometer, ultrasonicPoller, colorPoller);
-		Navigation operator = new Navigation(robot, odometer, ultrasonicPoller);
-		
-		operator.navigateTo(new Point(30, 30));
-		operator.navigateTo(new Point(60, 60));
-		operator.navigateTo(new Point(90, 90));
-		*/		
+		config.maximumPoint = new Point(2 * 30, 2 * 30);	
 		
 		Controller[] controllers = new Controller[]{ 
 			new GridController(config), 

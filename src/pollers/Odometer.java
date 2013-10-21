@@ -23,7 +23,6 @@ import lejos.nxt.LCD;
 
 public class Odometer implements TimerListener {
 	private static final int PERIOD = 10;
-	private Timer timer;
 	
 	private Position position;
 	private Object lock;
