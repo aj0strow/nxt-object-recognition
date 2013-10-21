@@ -34,7 +34,8 @@ public class Lab5 {
 		
 		Controller[] controllers = new Controller[]{ 
 			new GridController(config), 
-			new ForwardController(config)
+			new ForwardController(config),
+			new SearchController(config)
 		};
 
 		Operator operator = new Operator(controllers);
