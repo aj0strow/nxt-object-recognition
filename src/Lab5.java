@@ -10,6 +10,8 @@ public class Lab5 {
 		
 		Button.waitForAnyPress();
 		
+		// configure
+		
 		Configuration config = new Configuration();
 				
 		config.robot = new Robot(Motor.A, Motor.B);
@@ -31,30 +33,29 @@ public class Lab5 {
 		};
 
 		Operator operator = new Operator(controllers);
-		
-		LCD.drawString("d", 6, 1);
-		
-		
 		operator.start();
+				
 		
 		// localize
-		
+				
 		/*
+		UltrasonicLocalizer ultrasonicLocalizer = new UltrasonicLocalizer(config.robot, 
+				config.odometer, config.ultrasonicPoller);
 		LightSensor lightSensor = new LightSensor(SensorPort.S1);
-		// UltrasonicLocalizer ultrasonicLocalizer = new UltrasonicLocalizer(robot, odometer, ultrasonicPoller);
-		// LineLocalizer lineLocalizer = new LineLocalizer(robot, odometer, lightSensor);
+		LineLocalizer lineLocalizer = new LineLocalizer(config.robot, config.odometer, lightSensor);
 		
 		ultrasonicLocalizer.localize();
 		while (ultrasonicLocalizer.isLocalizing()) halt();
 		
 		lineLocalizer.localize();
 		while (lineLocalizer.isLocalizing()) halt();
-				
-		operator.start();
-		operator.travelTo(new Point(0.0, 0.0));
-		while (operator.isNavigating()) halt();
 		
 		Sound.twoBeeps();
+		
+		path.push(new Point(0.0, 0.0));
+		operator.start();
+
+		
 		
 		operator.rotateTo(0.0);
 		while (operator.isNavigating()) halt();
@@ -65,6 +66,10 @@ public class Lab5 {
 		}
 		robot.setSpeeds(0.0, 0.0);
 		odometer.setTheta(0.0);
+		
+		
+		
+		
 		*/
 		
 		// find blocks

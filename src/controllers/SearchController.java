@@ -29,11 +29,11 @@ public class SearchController extends Controller {
 	}
 	
 	private void wander() {
-		path.push(new Point(30, 60));
-		path.push(new Point(30, 90));
-		path.push(new Point(60, 90));
+		path.push(new Point(60, 180));
+		path.push(new Point(30, 150));
+		path.push(new Point(60, 120));
+		path.push(new Point(90, 90));
 		path.push(new Point(60, 60));
-		path.push(new Point(60, 30));
 	}
 
 }

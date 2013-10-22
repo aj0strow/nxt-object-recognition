@@ -43,7 +43,14 @@ public class CollisionController extends RotationController {
 	}
 	
 	private boolean tooClose() {
-		return !isWall() && ultrasonicDistance < PROXIMITY;
+		boolean midSpin = false;
+		if (!path.empty()) {
+			double angle = position.angleTo(path.peek());
+			double difference = Angle.difference(position.theta, angle);
+			midSpin = Math.abs(difference) < Math.toRadians(30);
+		}
+
+		return !isWall() && ultrasonicDistance < PROXIMITY && midSpin;
 	}
 	
 	private boolean isWall() {
@@ -62,7 +69,9 @@ public class CollisionController extends RotationController {
 	private void revisePath() {
 		double distance = position.distanceTo(path.peek());
 		if (Math.abs(distance - ultrasonicDistance) < 8) {
-			path.pop(); Sound.beep();
+			path.pop(); 
+			this.sign = (int) Angle.direction(position.theta, position.angleTo(path.peek()));
+			Sound.beep();
 		} 
 	}
 	

@@ -28,8 +28,8 @@ The Lab is about localizing, finding a block, and bringing it to a certain locat
 
 1. stay in the grid (don't hit walls)
 2. avoid wooden blocks and other robots
-3. bring styrofoam block in possession to score zone
-4. find styrofoam blocks
+3. search for styrofoam blocks
+4. bring block to score zone
 
 The brick runs multiple threads. 1 for the Operator, and 1 for each poller (odometry, color sensing, ultrasonic distance sensing). The operator goes through a stack of controllers, and each controller returns whether the operator should try the next controller.
 
