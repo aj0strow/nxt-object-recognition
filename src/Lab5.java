@@ -1,4 +1,5 @@
 import lejos.nxt.*;
+import lejos.nxt.SensorPort;
 import lejos.nxt.ColorSensor;
 import lejos.util.*;
 
@@ -10,23 +11,30 @@ public class Lab5 {
 		Button.waitForAnyPress();
 		
 		Configuration config = new Configuration();
+				
 		config.robot = new Robot(Motor.A, Motor.B);
 		config.robot.setAcceleration(10000);
-		
+				
 		config.odometer = new Odometer(config.robot);
+				
 		config.ultrasonicPoller = new UltrasonicPoller(SensorPort.S2);
-		config.colorPoller = new ColorPoller(SensorPort.S3);
+				
+		config.colorPoller = new ColorPoller(SensorPort.S4);
+						
+		config.maximumPoint = new Point(4 * 30, 8 * 30);
 		
-		config.maximumPoint = new Point(2 * 30, 2 * 30);	
-		
-		Controller[] controllers = new Controller[]{ 
-			new GridController(config), 
+		Controller[] controllers = new Controller[]{
+			new GridController(config),
 			new CollisionController(config),
 			new SearchController(config),
 			new PathController(config)
 		};
 
 		Operator operator = new Operator(controllers);
+		
+		LCD.drawString("d", 6, 1);
+		
+		
 		operator.start();
 		
 		// localize

@@ -1,8 +1,10 @@
 import java.util.Stack;
+import lejos.nxt.LCD;
 
 public class PathController extends RobotController {
 
 	private Stack<Point> path;
+	private double distance;
 
 	public PathController(Configuration configuration) {
 		super(configuration);
@@ -11,8 +13,12 @@ public class PathController extends RobotController {
 	
 	@Override
 	protected void setup() {
+		LCD.drawString(path.peek().toString(), 0, 5);
 		super.setup();
-		if (super.ok()) navigate();
+		if (super.ok() && !path.empty()) {
+			if (arrived()) path.pop();
+			else navigate();
+		}
 	}
 	
 	@Override
@@ -20,10 +26,8 @@ public class PathController extends RobotController {
 		return super.ok() && path.empty();
 	}
 	
-	private void navigate() {
-		Point point = path.peek();
-		
-		double angle = position.angleTo(point);
+	private void navigate() {		
+		double angle = position.angleTo(path.peek());
 		double difference = Angle.difference(position.theta, angle);
 		double direction = Math.abs(difference) / difference;
 
@@ -32,5 +36,16 @@ public class PathController extends RobotController {
 		} else {
 			robot.setSpeeds(FORWARD_SPEED, difference * 4);
 		}
+	}
+	
+	private boolean arrived() {
+		double newDistance = position.distanceTo(path.peek());
+		
+		boolean isClose = newDistance < 2.0;
+		boolean worsened = distance <= newDistance;
+		
+		this.distance = newDistance;
+		
+		return isClose && worsened;
 	}
 }

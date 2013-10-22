@@ -43,17 +43,27 @@ public class CollisionController extends RotationController {
 	}
 	
 	private boolean tooClose() {
-		return ultrasonicDistance < PROXIMITY;
+		return !isWall() && ultrasonicDistance < PROXIMITY;
 	}
-
+	
+	private boolean isWall() {
+		boolean x = position.x > (30 * 8 - 30) || position.x < 30;
+		boolean y = position.y > (30 * 4 - 30) || position.y < 30;
+		return x || y;
+	}
+	
 	private void avoidCollision() {
 		this.state = 1;
 		
+		if (!path.empty()) revisePath();
+		avoid();
+	}
+	
+	private void revisePath() {
 		double distance = position.distanceTo(path.peek());
 		if (Math.abs(distance - ultrasonicDistance) < 8) {
 			path.pop(); Sound.beep();
 		} 
-		avoid();
 	}
 	
 	private void avoid() {
@@ -66,6 +76,7 @@ public class CollisionController extends RotationController {
 			}
 			else state ++;
 		} else {
+			Sound.beep();
 			this.state = 0;
 		}
 	}

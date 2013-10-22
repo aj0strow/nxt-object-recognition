@@ -3,16 +3,18 @@ import lejos.util.Timer;
 import lejos.util.TimerListener;
 import lejos.nxt.SensorPort;
 
+import lejos.nxt.LCD;
+
 public class ColorPoller implements TimerListener {
 	public static final int PERIOD = 50;
 	
-	private ColorSensor.Color color;
 	private ColorSensor colorSensor;
+	private ColorSensor.Color color;
 	private Timer timer = null;
 	
 	public ColorPoller(SensorPort sensorPort) {
 		this.colorSensor = new ColorSensor(sensorPort);
-		timedOut();
+		timedOut();		
 		start();
 	}
 	

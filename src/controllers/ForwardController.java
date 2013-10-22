@@ -6,6 +6,7 @@ public class ForwardController extends RobotController {
 
 	public ForwardController(Configuration configuration) {
 		super(configuration);
+		this.robot = configuration.robot;
 	}
 	
 	@Override

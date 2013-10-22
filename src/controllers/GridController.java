@@ -7,11 +7,11 @@
 */
 
 public class GridController extends RotationController {
-	private static final double DEBOUNCE_DISTANCE = 5.0;
 	protected static final double DELTA = 18.0;
 	protected Point maximum;
 	
 	private Point correctedAt;
+	private static final double DEBOUNCE_DISTANCE = 5.0;
 	
 	public GridController(Configuration configuration) {
 		super(configuration);

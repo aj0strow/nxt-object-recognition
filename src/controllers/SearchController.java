@@ -6,9 +6,8 @@ public class SearchController extends Controller {
 	protected Point maximum;
 	protected Stack<Point> path;
 	
-	private boolean hadPosession = false;
-	private boolean inPosession = false;
-	
+	boolean inPosession = false;
+		
 	public SearchController(Configuration configuration) {
 		super(configuration);
 		this.colorPoller = configuration.colorPoller;
@@ -18,17 +17,15 @@ public class SearchController extends Controller {
 	
 	@Override
 	protected void setup() {
-		super.setup();
-		this.inPosession = colorPoller.inPosession();
-		
-		if (inPosession && !hadPosession) {
-			path.clear();
-			path.push(new Point(maximum.x - 18, maximum.y - 18));
-		} else if (path.empty()) {
-			wander();
+		if (!inPosession) {
+			if (path.empty()) {
+				wander();
+			} else if(colorPoller.inPosession()) {
+				this.inPosession = true;
+				path.clear();
+				path.push(new Point(maximum.x - 18, maximum.y - 18));
+			}
 		}
-			
-		this.hadPosession = inPosession;
 	}
 	
 	private void wander() {
