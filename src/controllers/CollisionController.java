@@ -1,7 +1,7 @@
 import java.util.Stack;
 import lejos.nxt.Sound;
 
-public class CollisionController extends NavigationController {
+public class CollisionController extends RotationController {
 	// cannot be closer than 25 cm to anything
 	public static final int PROXIMITY = 25;
 	

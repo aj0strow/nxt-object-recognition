@@ -4,7 +4,7 @@ public class SearchController extends Controller {
 	
 	protected ColorPoller colorPoller;
 	protected Point maximum;
-	Stack<Point> path;
+	protected Stack<Point> path;
 	
 	private boolean hadPosession = false;
 	private boolean inPosession = false;

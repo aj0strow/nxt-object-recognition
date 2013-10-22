@@ -21,8 +21,9 @@ public class Lab5 {
 		
 		Controller[] controllers = new Controller[]{ 
 			new GridController(config), 
-			new ForwardController(config),
-			new SearchController(config)
+			new CollisionController(config),
+			new SearchController(config),
+			new PathController(config)
 		};
 
 		Operator operator = new Operator(controllers);

@@ -6,7 +6,7 @@
 *  the wall when the robot is too close to a side. It will only correct every 5cm. 
 */
 
-public class GridController extends NavigationController {
+public class GridController extends RotationController {
 	private static final double DEBOUNCE_DISTANCE = 5.0;
 	protected static final double DELTA = 18.0;
 	protected Point maximum;
